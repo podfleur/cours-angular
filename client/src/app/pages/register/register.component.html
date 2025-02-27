@@ -1,0 +1,77 @@
+<div class="register-container p-8 max-w-md mx-auto bg-white rounded-xl shadow-lg">
+  <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Register</h2>
+  <div *ngIf="error" class="error-message text-red-500 text-center mb-4">
+    {{ error }}
+  </div>
+  <div *ngIf="success" class="success-message text-green-500 text-center mb-4">
+    {{ success }}
+  </div>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="space-y-6">
+    <div class="form-group">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{ 'border-red-500': f['username'].touched && f['username'].errors }"
+      />
+      <div *ngIf="f['username'].touched && f['username'].errors" class="validation-error text-red-500 text-sm mt-1">
+        <div *ngIf="f['username'].errors['required']">Username is required</div>
+        <div *ngIf="f['username'].errors['minlength']">Username must be at least 3 characters</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{ 'border-red-500': f['email'].touched && f['email'].errors }"
+      />
+      <div *ngIf="f['email'].touched && f['email'].errors" class="validation-error text-red-500 text-sm mt-1">
+        <div *ngIf="f['email'].errors['required']">Email is required</div>
+        <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{ 'border-red-500': f['password'].touched && f['password'].errors }"
+      />
+      <div *ngIf="f['password'].touched && f['password'].errors" class="validation-error text-red-500 text-sm mt-1">
+        <div *ngIf="f['password'].errors['required']">Password is required</div>
+        <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{ 'border-red-500': f['confirmPassword'].touched && f['confirmPassword'].errors }"
+      />
+      <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors" class="validation-error text-red-500 text-sm mt-1">
+        <div *ngIf="f['confirmPassword'].errors['required']">Please confirm your password</div>
+        <div *ngIf="f['confirmPassword'].errors['passwordMismatch']">Passwords do not match</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        type="submit"
+        [disabled]="form.invalid || loading"
+        class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+      {{ loading ? 'Registering...' : 'Register' }}
+      </button>
+    </div>
+    <div class="login-link text-sm text-gray-600 text-center">
+      Already have an account? <a routerLink="/login" class="text-indigo-600 hover:underline">Login</a>
+    </div>
